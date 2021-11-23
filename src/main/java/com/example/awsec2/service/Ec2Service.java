@@ -1,8 +1,13 @@
 package com.example.awsec2.service;
 
+import com.amazonaws.services.ec2.model.StartInstancesResult;
+import com.amazonaws.services.ec2.model.StopInstancesResult;
+
 public interface Ec2Service {
 
-    void startInstance();
+    StartInstancesResult startInstance(String id);
 
-    void stopInstance();
+    StopInstancesResult stopInstance(String id);
+
+    void uploadFile();
 }

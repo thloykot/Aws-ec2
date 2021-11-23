@@ -1,10 +1,12 @@
 package com.example.awsec2.service.impl;
 
 import com.amazonaws.services.ec2.AmazonEC2;
-import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.StartInstancesRequest;
+import com.amazonaws.services.ec2.model.StartInstancesResult;
 import com.amazonaws.services.ec2.model.StopInstancesRequest;
+import com.amazonaws.services.ec2.model.StopInstancesResult;
 import com.example.awsec2.service.Ec2Service;
+import com.example.awsec2.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +17,25 @@ import java.util.List;
 public class Ec2ServiceImpl implements Ec2Service {
 
     private final AmazonEC2 amazonEC2;
+    private final S3Service s3Service;
 
     @Override
-    public void startInstance() {
-        StartInstancesRequest request = new StartInstancesRequest(List.of("i-060ddbed9b4867cb9"));
-        amazonEC2.startInstances(request);
+    public StartInstancesResult startInstance(String id) {
+        return amazonEC2.startInstances(
+                new StartInstancesRequest(List.of(id))
+        );
     }
 
     @Override
-    public void stopInstance() {
-        StopInstancesRequest request = new StopInstancesRequest(List.of(""));
-        amazonEC2.stopInstances(request);
+    public StopInstancesResult stopInstance(String id) {
+        return amazonEC2.stopInstances(
+                new StopInstancesRequest(List.of(id))
+        );
+    }
+
+    @Override
+    public void uploadFile() {
+        amazonEC2.copy
+        s3Service.uploadFile();
     }
 }
