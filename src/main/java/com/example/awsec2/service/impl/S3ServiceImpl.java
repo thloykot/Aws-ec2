@@ -4,8 +4,10 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.example.awsec2.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 
 @Service
@@ -13,14 +15,12 @@ import java.io.File;
 public class S3ServiceImpl implements S3Service {
 
     private final AmazonS3 amazonS3;
-    private final File file = new File("src/main/resources/geometry-app/Geometry.jar");
-    private final String bucketName = "test-bucket-geo";
+
+    private static final String BUCKET_NAME = "test-bucket-geo";
 
     @Override
-    public void uploadFile() {
-        amazonS3.putObject(bucketName, file.getName(), file);
-        System.out.println("endpoint");
+    public void uploadFile(File file) {
+            amazonS3.putObject(BUCKET_NAME, file.getName(), file);
+
     }
-
-
 }
